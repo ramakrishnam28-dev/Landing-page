@@ -2251,6 +2251,10 @@ body.lang-tel .eng-val { display: none !important; }
           <div style="font-size:3rem;margin-bottom:14px;">✅</div>
           <span style="font-family:'Anek Telugu',sans-serif;font-size:1.3rem;font-weight:700;color:var(--green);display:block;margin-bottom:6px;">మీకు ధన్యవాదాలు! మేము త్వరలో సంప్రదిస్తాం.</span>
           <span style="font-size:0.9rem;color:var(--text2);display:block;font-style:normal;">Thank you! We'll onboard you within 24 hours.</span>
+          <div id="ref-success-id-wrapper" style="margin-top:18px;background:rgba(47,133,90,0.08);border-radius:12px;padding:14px 20px;display:inline-block;">
+            <span style="font-size:0.78rem;color:var(--muted);display:block;margin-bottom:4px;">Your Referral ID</span>
+            <span id="ref-success-id" style="font-family:'DM Sans',sans-serif;font-size:1.4rem;font-weight:800;color:var(--green);letter-spacing:2px;">—</span>
+          </div>
         </div>
         <div class="ref-disclaimer"><span class="tel">మీ సమాచారం పూర్తిగా సురక్షితం. మేము ఎవరికీ అమ్మం.</span><span class="eng">Your info is private & secure. We never share your data.</span></div>
       </div>
@@ -2332,8 +2336,81 @@ function setupRevealObserver() {
 function checkReveals() { document.querySelectorAll('.reveal:not(.in-view)').forEach(el => { if (isInViewport(el)) el.classList.add('in-view'); }); }
 
 /* FORMS */
-function handleMainSubmit(e) { e.preventDefault(); document.getElementById('lead-form').style.display = 'none'; document.getElementById('form-success').classList.add('visible'); }
-function handleRefSubmit(e) { e.preventDefault(); document.getElementById('ref-form').style.display = 'none'; document.getElementById('ref-form-success').style.display = 'block'; }
+// ── Railway backend URL ───────────────────────────────────────
+const BACKEND_URL = 'https://solarepc-backend-production.up.railway.app';
+
+// ── Main CTA form (lead enquiry) ──────────────────────────────
+async function handleMainSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('lead-form');
+  const btn  = form.querySelector('button[type="submit"]');
+  const inputs = form.querySelectorAll('input, select');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span>Submitting…</span>';
+
+  const [name, phone, solar_need, city, bill_range, email] = [...inputs].map(i => i.value.trim());
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/v1/leads`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, city, solar_need, bill_range, email, source: 'main' }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || 'Submission failed');
+    }
+
+    form.style.display = 'none';
+    document.getElementById('form-success').classList.add('visible');
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = '<span class="tel">సమర్పించండి →</span><span class="eng">Submit & Get Free Quote</span>';
+    alert(err.message || 'Something went wrong. Please try again.');
+  }
+}
+
+// ── Referral partner registration form ───────────────────────
+async function handleRefSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('ref-form');
+  const btn  = form.querySelector('button[type="submit"]');
+  const inputs = form.querySelectorAll('input, select');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span>Submitting…</span>';
+
+  const [name, phone, city] = [...inputs].map(i => i.value.trim());
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/v1/leads/register-referrer`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, city }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || 'Registration failed');
+    }
+
+    const data = await res.json();
+    form.style.display = 'none';
+    const successEl = document.getElementById('ref-form-success');
+    // Show their referral ID prominently if returned
+    if (data?.data?.referral_id) {
+      const idEl = document.getElementById('ref-success-id');
+      if (idEl) idEl.textContent = data.data.referral_id;
+    }
+    successEl.style.display = 'block';
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = '<span class="tel">నమోదు చేయండి →</span><span class="eng">Register as Partner</span>';
+    alert(err.message || 'Something went wrong. Please try again.');
+  }
+}
 
 /* LANGUAGE */
 document.body.classList.add('lang-tel');
