@@ -2052,13 +2052,30 @@ body.lang-tel .eng-val { display: none !important; }
             <div class="form-field"><label><span class="tel">సోలార్ అవసరం ఎందుకు?</span><span class="eng">Solar Need For *</span></label>
               <select required><option value="" disabled selected>సోలార్ అవసరం ఎంచుకోండి / Solar Need For</option><option>ఇంటికి / Home (Residential)</option><option>వ్యాపారానికి / Business (Commercial)</option><option>వ్యవసాయానికి / Agriculture</option><option>పాఠశాలకు / School / Institution</option><option>ఇతర / Other</option></select>
             </div>
-            <div class="form-field"><label><span class="tel">నగరం / జిల్లా</span><span class="eng">City *</span></label>
-              <select required><option value="" disabled selected>నగరం ఎంచుకోండి / Select City</option><option>Vijayawada / విజయవాడ</option><option>Visakhapatnam / విశాఖపట్నం</option><option>Guntur / గుంటూరు</option><option>Nellore / నెల్లూరు</option><option>Tirupati / తిరుపతి</option><option>Kurnool / కర్నూలు</option><option>Anantapur / అనంతపురం</option><option>Kadapa / కడప</option><option>Rajahmundry / రాజమహేంద్రవరం</option><option>Eluru / ఏలూరు</option><option>Ongole / ఒంగోలు</option><option>Other / ఇతర</option></select>
+            <div class="form-field"><label><span class="tel">రాష్ట్రం</span><span class="eng">State *</span></label>
+              <select id="lf-state" onchange="lfOnStateChange('lf')" required>
+                <option value="" disabled selected>రాష్ట్రం ఎంచుకోండి / Select State</option>
+                <option value="Andhra Pradesh">Andhra Pradesh / ఆంధ్రప్రదేశ్</option>
+                <option value="Telangana">Telangana / తెలంగాణ</option>
+                <option value="Other">Other / ఇతర రాష్ట్రం</option>
+              </select>
+            </div>
+            <div class="form-field"><label><span class="tel">జిల్లా</span><span class="eng">District *</span></label>
+              <select id="lf-district" onchange="lfOnDistrictChange('lf')" required disabled>
+                <option value="" disabled selected>ముందు రాష్ట్రం ఎంచుకోండి / Select State First</option>
+              </select>
+            </div>
+            <div class="form-field"><label><span class="tel">నగరం / మండలం / గ్రామం</span><span class="eng">City / Mandal / Village *</span></label>
+              <input type="text" id="lf-city" placeholder="నగరం లేదా గ్రామం పేరు టైప్ చేయండి / Type your city or village" required list="lf-city-list">
+              <datalist id="lf-city-list"></datalist>
             </div>
             <div class="form-field"><label><span class="tel">నెలవారీ సగటు కరెంట్ బిల్లు</span><span class="eng">Monthly Average Electricity Bill *</span></label>
               <select required><option value="" disabled selected>నెల బిల్లు ఎంచుకోండి / Monthly Average Bill</option><option>₹500 కంటే తక్కువ / Under ₹500</option><option>₹500 – ₹1,000</option><option>₹1,000 – ₹2,000</option><option>₹2,000 – ₹3,000</option><option>₹3,000 – ₹5,000</option><option>₹5,000+ పైన / Above ₹5,000</option></select>
             </div>
-            <div class="form-field"><label><span class="tel">ఇమెయిల్ చిరునామా</span><span class="eng">Email Address *</span></label><input type="email" placeholder="ఇమెయిల్ / Enter Email Address" required></div>
+            <div class="form-field"><label><span class="tel">ఫైనాన్సింగ్ ఆసక్తి ఉందా?</span><span class="eng">Interested in Financing?</span></label>
+              <select id="lf-financing"><option value="" disabled selected>ఎంచుకోండి / Select</option><option value="Yes - EMI">అవును, EMI కావాలి / Yes, I want EMI</option><option value="Yes - Loan">అవును, లోన్ కావాలి / Yes, Bank Loan</option><option value="No - Full Payment">లేదు, పూర్తి చెల్లింపు / No, Full Payment</option><option value="Not Sure">తెలియదు / Not Sure Yet</option></select>
+            </div>
+            <div class="form-field"><label><span class="tel">ఇమెయిల్ చిరునామా</span><span class="eng">Email Address</span></label><input type="email" id="lf-email" placeholder="ఇమెయిల్ / Enter Email Address (Optional)"></div>
             <button type="submit" class="form-submit"><span class="tel">సమర్పించండి →</span><span class="eng">Submit & Get Free Quote</span></button>
           </form>
           <div class="form-success" id="form-success">
@@ -2241,9 +2258,23 @@ body.lang-tel .eng-val { display: none !important; }
         <div class="register-form-title"><span class="tel">పార్ట్‌నర్‌గా నమోదు చేసుకోండి</span><span class="eng">Register as a Referral Partner — Start Earning</span></div>
         <form id="ref-form" onsubmit="handleRefSubmit(event)">
           <div class="ref-form-field"><label><span class="tel">పూర్తి పేరు</span><span class="eng">Full Name *</span></label><input type="text" placeholder="పూర్తి పేరు / Full Name" required></div>
-          <div class="ref-form-field"><label><span class="tel">మొబైల్ నంబర్</span><span class="eng">Phone Number *</span></label><input type="tel" placeholder="మొబైల్ నంబర్ / Phone Number" required></div>
-          <div class="ref-form-field"><label><span class="tel">నగరం / జిల్లా</span><span class="eng">City / District *</span></label>
-            <select required><option value="" disabled selected>నగరం ఎంచుకోండి / Select City</option><option>Vijayawada / విజయవాడ</option><option>Visakhapatnam / విశాఖపట్నం</option><option>Guntur / గుంటూరు</option><option>Nellore / నెల్లూరు</option><option>Tirupati / తిరుపతి</option><option>Kurnool / కర్నూలు</option><option>Anantapur / అనంతపురం</option><option>Other / ఇతర</option></select>
+          <div class="ref-form-field"><label><span class="tel">మొబైల్ నంబర్</span><span class="eng">Phone Number *</span></label><input type="tel" placeholder="మొబైల్ నంబర్ / Phone Number" required maxlength="10"></div>
+          <div class="ref-form-field"><label><span class="tel">రాష్ట్రం</span><span class="eng">State *</span></label>
+            <select id="rf-state" onchange="lfOnStateChange('rf')" required>
+              <option value="" disabled selected>రాష్ట్రం ఎంచుకోండి / Select State</option>
+              <option value="Andhra Pradesh">Andhra Pradesh / ఆంధ్రప్రదేశ్</option>
+              <option value="Telangana">Telangana / తెలంగాణ</option>
+              <option value="Other">Other / ఇతర రాష్ట్రం</option>
+            </select>
+          </div>
+          <div class="ref-form-field"><label><span class="tel">జిల్లా</span><span class="eng">District *</span></label>
+            <select id="rf-district" onchange="lfOnDistrictChange('rf')" required disabled>
+              <option value="" disabled selected>ముందు రాష్ట్రం ఎంచుకోండి / Select State First</option>
+            </select>
+          </div>
+          <div class="ref-form-field"><label><span class="tel">నగరం / మండలం / గ్రామం</span><span class="eng">City / Mandal / Village *</span></label>
+            <input type="text" id="rf-city" placeholder="నగరం లేదా గ్రామం పేరు టైప్ చేయండి / Type your city or village" required list="rf-city-list">
+            <datalist id="rf-city-list"></datalist>
           </div>
           <button type="submit" class="ref-submit"><span class="tel">ఇప్పుడే చేరండి — ఉచితం! →</span><span class="eng">Join Now — It's Free!</span></button>
         </form>
@@ -2336,6 +2367,89 @@ function setupRevealObserver() {
 function checkReveals() { document.querySelectorAll('.reveal:not(.in-view)').forEach(el => { if (isInViewport(el)) el.classList.add('in-view'); }); }
 
 /* FORMS */
+
+// ═══════════════════════════════════════════════════════════════
+// AP LOCATION DATA — State → District → City/Mandal cascade
+// ═══════════════════════════════════════════════════════════════
+const AP_LOCATIONS = {
+  "Andhra Pradesh": {
+    "Anantapur / అనంతపురం": ["Anantapur","Dharmavaram","Guntakal","Hindupur","Kadiri","Kalyanadurgam","Nandyal","Tadipatri","Rayadurgam","Gooty","Pamidi","Uravakonda","Singanamala","Kanaganapalle","Bukkarayasamudram"],
+    "Chittoor / చిత్తూరు": ["Chittoor","Tirupati","Madanapalle","Punganur","Srikalahasti","Puttur","Nagari","Palamaner","Kuppam","Chandragiri","Piler","Pakala","Yerpedu","Thamballapalle"],
+    "East Godavari / తూర్పు గోదావరి": ["Kakinada","Rajahmundry","Amalapuram","Peddapuram","Samalkot","Tuni","Mandapeta","Prathipadu","Ramachandrapuram","Gollaprolu","Malkipuram","Draksharamam","Ravulapalem"],
+    "Eluru / ఏలూరు": ["Eluru","Bhimavaram","Tadepalligudem","Narsapur","Palakol","Jangareddigudem","Kovvur","Tanuku","Akividu","Narasapur","Palakollu","Polavaram"],
+    "Guntur / గుంటూరు": ["Guntur","Tenali","Narasaraopet","Bapatla","Sattenapalle","Vinukonda","Ponnur","Chilakaluripet","Mangalagiri","Macherla","Piduguralla","Repalle","Phirangipuram"],
+    "Krishna / కృష్ణా": ["Vijayawada","Machilipatnam","Gudivada","Nandigama","Nuzvid","Gannavaram","Jaggayyapeta","Tiruvuru","Vuyyuru","Kaikaluru","Pamarru","Mylavaram"],
+    "Kurnool / కర్నూలు": ["Kurnool","Adoni","Nandyal","Dhone","Yemmiganur","Alur","Pattikonda","Kodumur","Aspari","Nandikotkur","Velugodu","Devanakonda"],
+    "NTR / ఎన్టీఆర్": ["Vijayawada","Nandigama","Tiruvuru","Jaggayyapeta","Mylavaram","Kaikaluru","Gudlavalleru"],
+    "Palnadu / పల్నాడు": ["Narasaraopet","Macherla","Gurazala","Sattenapalle","Piduguralla","Vinukonda","Rentachintala","Dachepalle","Karampudi"],
+    "Prakasam / ప్రకాశం": ["Ongole","Markapur","Kandukur","Chirala","Giddalur","Podili","Darsi","Kanigiri","Santhanuthalapadu","Addanki","Inkollu","Pamuru"],
+    "Sri Potti Sriramulu Nellore / నెల్లూరు": ["Nellore","Kavali","Gudur","Sullurpeta","Atmakur","Udayagiri","Venkatagiri","Naidupeta","Alluru","Podalakur","Kovur"],
+    "Srikakulam / శ్రీకాకుళం": ["Srikakulam","Narasannapeta","Palasa","Amadalavalasa","Tekkali","Rajam","Ichapuram","Etcherla","Pathapatnam","Sompeta"],
+    "Tirupati / తిరుపతి": ["Tirupati","Chittoor","Puttur","Srikalahasti","Nagari","Chandragiri","Yerpedu","Pakala","Renigunta"],
+    "Visakhapatnam / విశాఖపట్నం": ["Visakhapatnam","Gajuwaka","Bheemunipatnam","Anakapalle","Paderu","Narsipatnam","Chodavaram","Sabbavaram","Yellamanchali","Araku","Elamanchili"],
+    "Vizianagaram / విజయనగరం": ["Vizianagaram","Bobbili","Salur","Parvathipuram","Cheepurupalli","Gajapathinagaram","Bheemunipatnam","Nellimarla","Srungavarapukota"],
+    "West Godavari / పశ్చిమ గోదావరి": ["Eluru","Bhimavaram","Tadepalligudem","Narsapur","Palakol","Tanuku","Akividu","Kovvur","Jangareddigudem","Polavaram","Palakollu"],
+    "Alluri Sitharama Raju / అల్లూరి": ["Paderu","Araku","Narsipatnam","Chintapalle","GK Veedhi","Munchingput","Hukumpeta"],
+    "Anakapalli / అనకాపల్లి": ["Anakapalle","Elamanchili","Chodavaram","Yelamanchili","Nakkapalle","Payakaraopeta"],
+    "Bapatla / బాపట్ల": ["Bapatla","Chirala","Repalle","Addanki","Inkollu","Vemuru","Nizampatnam"],
+    "Dr. B.R. Ambedkar Konaseema / కోనసీమ": ["Amalapuram","Ramachandrapuram","Malkipuram","Ravulapalem","Ambajipeta","Razole","Mandapeta"],
+    "Kakinada / కాకినాడ": ["Kakinada","Peddapuram","Samalkot","Gollaprolu","Prathipadu","Tuni","Yeleswaram"],
+    "Sri Sathya Sai / శ్రీ సత్యసాయి": ["Puttaparthi","Hindupur","Kadiri","Rayadurgam","Penukonda","Madakasira","Lepakshi"],
+    "Nandyal / నంద్యాల": ["Nandyal","Allagadda","Srisailam","Banaganapalle","Atmakur","Dhone","Kurnool"],
+    "Other / ఇతర": ["Other / ఇతర"]
+  },
+  "Telangana": {
+    "Hyderabad / హైదరాబాద్": ["Hyderabad","Secunderabad","Cyberabad","LB Nagar","Kukatpally","Ameerpet","Begumpet"],
+    "Rangareddy / రంగారెడ్డి": ["Shamshabad","Mahabubnagar","Shadnagar","Chevella","Tandur","Vikarabad"],
+    "Medchal-Malkajgiri / మేడ్చల్": ["Medchal","Malkajgiri","Kompally","Alwal","Shamirpet"],
+    "Warangal / వరంగల్": ["Warangal","Hanamkonda","Kazipet","Narsampet","Parkal"],
+    "Karimnagar / కరీంనగర్": ["Karimnagar","Jagtial","Peddapalli","Ramagundam","Sircilla"],
+    "Other / ఇతర": ["Other / ఇతర"]
+  },
+  "Other": {
+    "Other / ఇతర రాష్ట్రం": ["Other / ఇతర"]
+  }
+};
+
+function lfOnStateChange(prefix) {
+  const state = document.getElementById(prefix + '-state')?.value;
+  const districtEl = document.getElementById(prefix + '-district');
+  const cityEl = document.getElementById(prefix + '-city');
+  const cityList = document.getElementById(prefix + '-city-list');
+  if (!districtEl) return;
+
+  districtEl.innerHTML = '<option value="" disabled selected>జిల్లా ఎంచుకోండి / Select District</option>';
+  districtEl.disabled = false;
+  if (cityEl) { cityEl.value = ''; }
+  if (cityList) cityList.innerHTML = '';
+
+  const districts = AP_LOCATIONS[state] || {};
+  Object.keys(districts).forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d; opt.textContent = d;
+    districtEl.appendChild(opt);
+  });
+}
+
+function lfOnDistrictChange(prefix) {
+  const state = document.getElementById(prefix + '-state')?.value;
+  const district = document.getElementById(prefix + '-district')?.value;
+  const cityEl = document.getElementById(prefix + '-city');
+  const cityList = document.getElementById(prefix + '-city-list');
+  if (!cityList) return;
+
+  cityList.innerHTML = '';
+  const cities = (AP_LOCATIONS[state] || {})[district] || [];
+  cities.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; cityList.appendChild(opt);
+  });
+  if (cityEl) cityEl.value = '';
+  if (cities.length === 1 && cities[0].startsWith('Other')) {
+    if (cityEl) cityEl.placeholder = 'మీ నగరం / గ్రామం పేరు టైప్ చేయండి / Type your city';
+  }
+}
+
 // ── Railway backend URL ───────────────────────────────────────
 const BACKEND_URL = 'https://solarepc-backend-production.up.railway.app';
 
@@ -2349,13 +2463,20 @@ async function handleMainSubmit(e) {
   btn.disabled = true;
   btn.innerHTML = '<span>Submitting…</span>';
 
-  const [name, phone, solar_need, city, bill_range, email] = [...inputs].map(i => i.value.trim());
+  const [name, phone, solar_need] = [...inputs].slice(0,3).map(i => i.value.trim());
+  const state      = document.getElementById('lf-state')?.value || '';
+  const district   = document.getElementById('lf-district')?.value || '';
+  const cityVal    = document.getElementById('lf-city')?.value?.trim() || '';
+  const city       = [state, district, cityVal].filter(Boolean).join(' › ');
+  const bill_range = form.querySelectorAll('select')[3]?.value?.trim() || '';
+  const financing  = document.getElementById('lf-financing')?.value || '';
+  const email      = document.getElementById('lf-email')?.value?.trim() || '';
 
   try {
     const res = await fetch(`${BACKEND_URL}/api/v1/leads`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, city, solar_need, bill_range, email, source: 'main' }),
+      body: JSON.stringify({ name, phone, city, solar_need, bill_range, email, source: 'main', notes: financing ? 'Financing: ' + financing : undefined }),
     });
 
     if (!res.ok) {
@@ -2382,7 +2503,11 @@ async function handleRefSubmit(e) {
   btn.disabled = true;
   btn.innerHTML = '<span>Submitting…</span>';
 
-  const [name, phone, city] = [...inputs].map(i => i.value.trim());
+  const [name, phone] = [...inputs].slice(0,2).map(i => i.value.trim());
+  const rfState    = document.getElementById('rf-state')?.value || '';
+  const rfDistrict = document.getElementById('rf-district')?.value || '';
+  const rfCityVal  = document.getElementById('rf-city')?.value?.trim() || '';
+  const city       = [rfState, rfDistrict, rfCityVal].filter(Boolean).join(' › ');
 
   try {
     const res = await fetch(`${BACKEND_URL}/api/v1/leads/register-referrer`, {
