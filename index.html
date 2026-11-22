@@ -228,6 +228,8 @@ section { scroll-margin-top: 72px; }
   box-shadow: var(--shadow-md);
 }
 .media-panel video, .media-panel > img { width: 100%; height: 100%; object-fit: cover; }
+.media-panel .hero-vid { opacity: 0; transition: opacity .5s ease; }
+.media-panel .hero-vid.ready { opacity: 1; }
 .media-caption {
   position: absolute; left: 16px; bottom: 16px;
   display: inline-flex; align-items: center; gap: 8px;
@@ -851,7 +853,7 @@ section { scroll-margin-top: 72px; }
       </div>
     </div>
     <div class="media-panel">
-      <video autoplay muted loop playsinline preload="metadata" poster="https://pub-73ff9ada135c47a0903017c8dc842408.r2.dev/Landing%20page/success%20story%20(1).jpeg" aria-label="RCAL rooftop solar installation">
+      <video class="hero-vid" autoplay muted loop playsinline preload="auto" aria-label="RCAL rooftop solar installation">
         <source src="https://pub-73ff9ada135c47a0903017c8dc842408.r2.dev/Landing%20page/main%20page%20video.mp4" type="video/mp4">
       </video>
       <span class="media-caption"><svg class="i"><use href="#i-sun"/></svg><span class="tel">RCAL రూఫ్‌టాప్ ఇన్స్టాలేషన్</span><span class="eng">An RCAL rooftop installation</span></span>
@@ -1756,6 +1758,13 @@ function closeOfferPopup() {
   window.setBill = v => { input.value = v; slider.value = v; updateUI(v); };
   updateUI(1500);
 })();
+</script>
+<script>
+(function(){var v=document.querySelector('.hero-vid');if(!v)return;
+function show(){v.classList.add('ready');}
+if(v.readyState>=2)show();
+v.addEventListener('loadeddata',show);v.addEventListener('playing',show);
+setTimeout(show,4000);})();
 </script>
 </body>
 </html>
